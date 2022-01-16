@@ -1,7 +1,10 @@
 import React from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import NewMeetupForm from "../components/meetups/NewMeetupForm";
 
 const NewMeetupsPage = () => {
+  const history = useHistory(); // used for example to navigate away to another page once the form is submitted
+
   const addMeetupHandler = (meetupData) => {
     // 1. After slash we can write anything (meetups) that will create that folder with that name in Firebase. 2. URL needs .json at the end.
     // 3. By default fetch sends a GET request
@@ -12,7 +15,9 @@ const NewMeetupsPage = () => {
         body: JSON.stringify(meetupData),
         headers: { "Content-Type": "application/json" },
       }
-    );
+    ).then(() => {
+      history.replace("/");
+    });
   };
 
   return (
